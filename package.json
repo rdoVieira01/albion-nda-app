@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "albion-nda-app",
   "private": true,
   "type": "module",
   "scripts": {
@@ -10,7 +10,16 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@element-plus/nuxt": "^1.0.6",
     "@nuxt/devtools": "latest",
+    "@nuxtjs/eslint-config-typescript": "^12.1.0",
+    "@nuxtjs/eslint-module": "^4.1.0",
+    "element-plus": "^2.3.14",
+    "eslint": "^8.49.0",
     "nuxt": "^3.7.3"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.4.11",
+    "pinia": "^2.1.6"
   }
 }
