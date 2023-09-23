@@ -1,3 +1,11 @@
 {
-    "extends": ["@nuxtjs/eslint-config-typescript"]
-}
+    "extends": ["@nuxtjs/eslint-config-typescript"],
+    "rules": {
+      "semi": ["error", "always"],
+      "quotes": ["error", "single"],
+      "arrow-parens": ["error", "always"],
+      "comma-dangle": ["error", "always-multiline"],
+      "space-before-function-paren": ["error", "never"]
+    },
+    "ignorePatterns": ["genql/**/*"]
+  }
