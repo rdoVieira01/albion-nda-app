@@ -1,12 +1,20 @@
 <template>
-  <div>
-    <slot />
+  <div class="common-layout">
+    <el-container>
+      <el-header />
+      <el-main>
+        <slot />
+      </el-main>
+      <el-footer />
+    </el-container>
   </div>
 </template>
 
 <script lang="ts">
-import { useDark } from '@vueuse/core'
-useDark()
+import { useDark } from '@vueuse/core';
+useDark();
+
+export default defineComponent({});
 </script>
 
 <style>
