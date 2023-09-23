@@ -81,10 +81,24 @@ export default defineComponent({
 
 .timelineItem {
   margin-left: 25%;
+  @media screen and (max-width: 840px) {
+    margin-left: 0%;
+  }
+
 }
 
 .el-card{
-    max-width: 60%;
+  max-width: 60%;
+  @media screen and (max-width: 840px) {
+    max-width: 100%;
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 840px) {
+   * {
+    --el-collapse-header-height: auto !important;
+  }
 }
 
 </style>
