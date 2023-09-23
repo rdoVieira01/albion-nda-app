@@ -4,9 +4,18 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
     '@nuxtjs/eslint-module',
-    '@element-plus/nuxt'
+    '@element-plus/nuxt',
   ],
   elementPlus: {
-    themes: ['dark']
-  }
-})
+    themes: ['dark'],
+  },
+  app: {
+    head: {
+      title: 'Albion NDA Viewer',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'description', content: 'Simple web app that uses scraped data from Albion Online Forum to display easily readable NDA changes.' },
+      ],
+    },
+  },
+});
