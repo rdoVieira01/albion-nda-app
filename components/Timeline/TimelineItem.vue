@@ -11,7 +11,7 @@
       </el-select>
       <el-collapse v-model="activeNodes">
         <el-collapse>
-          <template v-for="(changeNode, mainIndex) in Object.keys(groupedChanges)" :key="mainIndex">
+          <template v-for="(changeNode, mainIndex) in allNodes" :key="mainIndex">
             <el-collapse-item class="mainNode" :title="changeNode" :name="changeNode">
               <template v-for="(change, index) in groupedChanges[changeNode]" :key="index">
                 <el-collapse-item class="subNode" :title="change.subNode" :name="change._d">
@@ -27,8 +27,6 @@
     </el-card>
   </el-timeline-item>
 </template>
-
-script setup ts
 
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue';
@@ -49,7 +47,7 @@ export default defineComponent({
 
     const { post } = props;
 
-    const allNodes = _.uniq(post.changes?.map((change) => change.mainNode));
+    const allNodes = _.uniq(post.changes?.map((change) => change.mainNode)).sort();
     const filteredChanges = computed(() => {
       if (!selectedNodes.value.length) {
         return post.changes;
