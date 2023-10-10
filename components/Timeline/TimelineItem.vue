@@ -11,7 +11,7 @@
       </el-select>
       <el-collapse v-model="activeNodes">
         <el-collapse>
-          <template v-for="(changeNode, mainIndex) in allNodes" :key="mainIndex">
+          <template v-for="(changeNode, mainIndex) in filteredNodes" :key="mainIndex">
             <el-collapse-item class="mainNode" :title="changeNode" :name="changeNode">
               <template v-for="(change, index) in groupedChanges[changeNode]" :key="index">
                 <el-collapse-item class="subNode" :title="change.subNode" :name="change._d">
@@ -32,7 +32,7 @@
 import { defineComponent, ref, computed } from 'vue';
 import _ from 'lodash';
 import dayjs from 'dayjs';
-import { Post } from '@/genql';
+import { Change, Post } from '~/graphql/genql';
 
 export default defineComponent({
   props: {
@@ -47,12 +47,12 @@ export default defineComponent({
 
     const { post } = props;
 
-    const allNodes = _.uniq(post.changes?.map((change) => change.mainNode)).sort();
+    const getChangeNodes = (changes: Change[]) => _.uniq(changes.map((change) => change.mainNode)).sort();
     const filteredChanges = computed(() => {
       if (!selectedNodes.value.length) {
         return post.changes;
       }
-      return post.changes?.filter((change) => selectedNodes.value.includes(change?.mainNode));
+      return post.changes?.filter((change: Change) => selectedNodes.value.includes(change?.mainNode));
     });
     const groupData = (data: any) => _.groupBy(data, 'mainNode');
 
@@ -60,10 +60,13 @@ export default defineComponent({
 
     const computedTitle = computed(() => `${dayjs(post.createdAt).format('DD/MM/YYYY')} - ${post.postId}`);
 
+    const allNodes = getChangeNodes(post.changes);
+    const filteredNodes = computed(() => getChangeNodes(filteredChanges.value));
     return {
       activeNodes,
       groupedChanges,
       allNodes,
+      filteredNodes,
       selectedNodes,
       computedTitle,
     };
