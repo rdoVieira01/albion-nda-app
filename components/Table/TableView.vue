@@ -13,7 +13,14 @@
       </template>
     </el-table-column>
     <el-table-column label="Date" sortable prop="createdAt" />
-    <el-table-column label="Main Node" sortable prop="mainNode" :filters="allUniqNodes" :filter-method="filterHandler" column-key="mainNode" />
+    <el-table-column
+      label="Main Node"
+      sortable
+      prop="mainNode"
+      :filters="allUniqNodes"
+      :filter-method="filterHandler"
+      column-key="mainNode"
+    />
     <el-table-column label="Sub Node" sortable prop="subNode" />
   </el-table>
 </template>
