@@ -1,7 +1,14 @@
 <template>
   <div class="common-layout">
     <el-container>
-      <el-header />
+      <el-header>
+        <el-alert
+          title="Found an error or have a sugestion/feedback? Feel free to message me on Discord: rdvo"
+          type="info"
+          description=" "
+          show-icon
+        />
+      </el-header>
       <el-main>
         <slot />
       </el-main>
