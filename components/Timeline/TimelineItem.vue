@@ -19,6 +19,20 @@
               <template v-for="(change, index) in groupedChanges[changeNode]" :key="index">
                 <el-collapse-item class="subNode" :name="change._d">
                   <template #title>
+                    <el-image style="width: 45px; height: 45px" :src="change.weaponImage" fit="contain">
+                      <template #error>
+                        <div class="image-slot text-gray-400 text-sm">
+                          <el-icon-picture />
+                        </div>
+                      </template>
+                    </el-image>
+                    <el-image style="width: 45px; height: 45px" :src="change.spellImage" fit="contain">
+                      <template #error>
+                        <div class="image-slot text-gray-400 text-sm">
+                          <el-icon-picture />
+                        </div>
+                      </template>
+                    </el-image>
                     {{ change.subNode }}
                   </template>
                   <el-row v-for="(desc, dI) in change.changes" :key="dI" class="description">
