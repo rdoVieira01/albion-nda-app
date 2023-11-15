@@ -14,7 +14,7 @@ import { defineComponent, onMounted } from 'vue';
 import _ from 'lodash';
 import Promise from 'bluebird';
 import gqlClient from '@/graphql';
-import { Post } from '@/graphql/genql';
+import { type Post } from '@/graphql/genql';
 
 export default defineComponent({
   props: {
