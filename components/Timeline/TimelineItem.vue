@@ -22,20 +22,13 @@
                     {{ change.subNode }}
                   </template>
                   <el-row v-for="(desc, dI) in change.changes" :key="dI" class="description">
-                    <el-col :span="1" :xs="2" class="text-left text-lg">
-                      <el-tooltip placement="top">
+                    <el-col :span="22">
+                      <el-tooltip placement="left">
                         <template #content>
                           {{ getPercentage(desc) }}%
                         </template>
-                        <el-icon>
-                          <el-icon-arrow-up-bold v-if="getPercentage(desc) > 0" class="text-lime-500" />
-                          <el-icon-arrow-down-bold v-else-if="getPercentage(desc) < 0" class="text-amber-600" />
-                          <el-icon-semi-select v-else class="h-15" />
-                        </el-icon>
+                        {{ desc }}
                       </el-tooltip>
-                    </el-col>
-                    <el-col :span="22">
-                      {{ desc }}
                     </el-col>
                   </el-row>
                 </el-collapse-item>
