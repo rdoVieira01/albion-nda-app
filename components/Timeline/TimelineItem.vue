@@ -69,7 +69,9 @@ export default defineComponent({
       }
       const [match] = matches;
 
-      const [before, after] = match.split('->');
+      const valueChanges = match.split('->');
+      const [before] = valueChanges;
+      const [after] = valueChanges.slice(-1);
 
       const cleanBefore = parseFloat(before?.trim());
       const cleanAfter = parseFloat(after?.trim());
