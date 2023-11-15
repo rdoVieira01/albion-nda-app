@@ -1,15 +1,18 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  telemetry: false,
   devtools: { enabled: true },
   runtimeConfig: {
     public: {
       API_URL: process.env.API_URL,
-    }
+    },
   },
   modules: [
     '@pinia/nuxt',
     '@nuxtjs/eslint-module',
     '@element-plus/nuxt',
+    '@nuxtjs/tailwindcss',
+    './src/module',
   ],
   elementPlus: {
     themes: ['dark'],

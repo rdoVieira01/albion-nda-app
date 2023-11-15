@@ -14,10 +14,12 @@
     "@nuxt/devtools": "latest",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/eslint-module": "^4.1.0",
+    "@nuxtjs/tailwindcss": "^6.9.4",
     "@types/bluebird": "^3.5.39",
     "element-plus": "^2.3.14",
     "eslint": "^8.49.0",
-    "nuxt": "^3.7.3"
+    "nuxt": "^3.7.3",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.11",
