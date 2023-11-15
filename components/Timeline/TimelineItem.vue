@@ -9,15 +9,35 @@
           :value="item"
         />
       </el-select>
-      <el-collapse v-model="activeNodes">
+      <el-collapse>
         <el-collapse>
           <template v-for="(changeNode, mainIndex) in filteredNodes" :key="mainIndex">
-            <el-collapse-item class="mainNode" :title="changeNode" :name="changeNode">
+            <el-collapse-item class="mainNode" :name="changeNode">
+              <template #title>
+                <span> {{ changeNode }} </span>
+              </template>
               <template v-for="(change, index) in groupedChanges[changeNode]" :key="index">
-                <el-collapse-item class="subNode" :title="change.subNode" :name="change._d">
-                  <p v-for="(desc, dI) in change.changes" :key="dI" class="description">
-                    {{ desc }}
-                  </p>
+                <el-collapse-item class="subNode" :name="change._d">
+                  <template #title>
+                    {{ change.subNode }}
+                  </template>
+                  <el-row v-for="(desc, dI) in change.changes" :key="dI" class="description">
+                    <el-col :span="1" :xs="2" class="text-left text-lg">
+                      <el-tooltip placement="top">
+                        <template #content>
+                          {{ getPercentage(desc) }}%
+                        </template>
+                        <el-icon>
+                          <el-icon-arrow-up-bold v-if="getPercentage(desc) > 0" class="text-lime-500" />
+                          <el-icon-arrow-down-bold v-else-if="getPercentage(desc) < 0" class="text-amber-600" />
+                          <el-icon-semi-select v-else class="h-15" />
+                        </el-icon>
+                      </el-tooltip>
+                    </el-col>
+                    <el-col :span="22">
+                      {{ desc }}
+                    </el-col>
+                  </el-row>
                 </el-collapse-item>
               </template>
             </el-collapse-item>
@@ -32,7 +52,7 @@
 import { defineComponent, ref, computed } from 'vue';
 import _ from 'lodash';
 import dayjs from 'dayjs';
-import { Change, Post } from '~/graphql/genql';
+import { type Change, type Post } from '~/graphql/genql';
 
 export default defineComponent({
   props: {
@@ -42,6 +62,35 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const changePercentages: Record<string, number> = {};
+
+    const getPercentage = (str: string) => {
+      if (changePercentages[str]) {
+        return changePercentages[str];
+      }
+
+      const regex = /(?!\d.*->).\d.*($|\D)/i;
+      const matches = str.match(regex);
+      if (!matches) {
+        return 0;
+      }
+      const [match] = matches;
+
+      const [before, after] = match.split('->');
+
+      const cleanBefore = parseFloat(before?.trim());
+      const cleanAfter = parseFloat(after?.trim());
+
+      const rawChange = cleanAfter - cleanBefore;
+      let percentualChange: number = parseFloat(((rawChange / cleanBefore) * 100).toFixed(2));
+
+      if (!Number.isFinite(percentualChange)) {
+        percentualChange = 0;
+      }
+
+      changePercentages[str] = percentualChange;
+      return percentualChange;
+    };
     const activeNodes = ref([]);
     const selectedNodes = ref([]);
 
@@ -69,6 +118,7 @@ export default defineComponent({
       filteredNodes,
       selectedNodes,
       computedTitle,
+      getPercentage,
     };
   },
 });
